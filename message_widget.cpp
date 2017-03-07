@@ -9,6 +9,8 @@
 #include <QLabel>
 #include <QLayout>
 
+#include <QDebug>
+
 MessageWidget::MessageWidget(QWidget * parent): QWidget(parent) {
 
 	messageLabel = new QLabel(this);
@@ -29,11 +31,13 @@ MessageWidget::MessageWidget(QWidget * parent): QWidget(parent) {
 void MessageWidget::info(QString message) {
 
 	this->message->setText(message);
+	qDebug() << "Info";
 
 }
 
 void MessageWidget::error(QString message) {
 
-
+	this->message->setText(message);
+	qDebug() << "Error";
 
 }

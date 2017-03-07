@@ -14,6 +14,11 @@ QtInterpreter::QtInterpreter(QObject * parent): QObject(parent) {
 
 void QtInterpreter::parseAndEvaluate(QString entry) {
 
-	info(entry);
+	if (entry.startsWith("Error")) {
+		error(entry);
+	}
+	else {
+		info(entry);
+	}
 
 }
