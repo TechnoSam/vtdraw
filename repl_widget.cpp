@@ -8,13 +8,16 @@
 #include <QString>
 #include <QLabel>
 #include <QLayout>
+#include <QKeyEvent>
+
+#include <QDebug>
 
 REPLWidget::REPLWidget(QWidget * parent) : QWidget(parent) {
 
-	QLabel * prompt = new QLabel(this);
+	prompt = new QLabel(this);
 	prompt->setText("vtscript>");
 
-	QLineEdit * input = new QLineEdit(this);
+	input = new QLineEdit(this);
 
 	QHBoxLayout * layout = new QHBoxLayout(this);
 
@@ -22,5 +25,13 @@ REPLWidget::REPLWidget(QWidget * parent) : QWidget(parent) {
 	layout->addWidget(input);
 
 	this->setLayout(layout);
+
+}
+
+void REPLWidget::keyPressEvent(QKeyEvent * evt) {
+
+	if (evt->key() == Qt::Key::Key_Return) {
+		qDebug()  << "Got enter key";
+	}
 
 }
