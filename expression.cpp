@@ -43,6 +43,27 @@ Expression::Expression(const Atom& atomValue) {
 
 }
 
+Expression::Expression(std::tuple<double, double> value) {
+
+
+
+}
+
+Expression::Expression(std::tuple<double, double> start,
+	std::tuple<double, double> end) {
+
+
+
+}
+
+Expression::Expression(std::tuple<double, double> center,
+	std::tuple<double, double> start,
+	double angle) {
+
+
+
+}
+
 bool Expression::operator==(const Expression & exp) const noexcept {
 
 	bool isEqual = false;
