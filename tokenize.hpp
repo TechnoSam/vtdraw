@@ -48,6 +48,9 @@ private:
 
 	bool isOnlyDouble(const char* str);
 
+	// From: http://stackoverflow.com/a/6089413/3287359
+	std::istream& safeGetline(std::istream& is, std::string& t);
+
 };
 
 #endif
