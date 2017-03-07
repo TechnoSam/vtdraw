@@ -10,8 +10,6 @@
 #include <QLayout>
 #include <QPalette>
 
-#include <QDebug>
-
 MessageWidget::MessageWidget(QWidget * parent): QWidget(parent) {
 
 	messageLabel = new QLabel(this);
