@@ -6,7 +6,7 @@
 
 #include <QWidget>
 
-class MessageWidget: public QWidget {
+class MessageWidget : public QWidget {
 Q_OBJECT
 
 public:
@@ -21,7 +21,6 @@ public slots:
 
 	// a public slot accepting an error message to display as selected text highlighted with a red background.
 	void error(QString message);
-
 
 };
 
