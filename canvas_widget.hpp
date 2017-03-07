@@ -1,6 +1,9 @@
 // File: canvas_widget.hpp
 // Author: Samuel McFalls
 
+#ifndef CANVAS_WIDGET_H
+#define CANVAS_WIDGET_H
+
 #include <QWidget>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -21,3 +24,5 @@ public slots:
 	void addGraphic(QGraphicsItem * item);
 
 };
+
+#endif
