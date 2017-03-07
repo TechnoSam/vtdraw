@@ -6,6 +6,8 @@
 #include <QObject>
 #include <QGraphicsItem>
 
+#include <QDebug>
+
 QtInterpreter::QtInterpreter(QObject * parent): QObject(parent) {
 
 
@@ -14,6 +16,6 @@ QtInterpreter::QtInterpreter(QObject * parent): QObject(parent) {
 
 void QtInterpreter::parseAndEvaluate(QString entry) {
 
-
+	qDebug() << entry;
 
 }

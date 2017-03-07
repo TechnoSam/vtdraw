@@ -6,6 +6,8 @@
 #include <QWidget>
 #include <QLayout>
 
+#include "qt_interpreter.hpp"
+
 MainWindow::MainWindow(QWidget * parent) : QWidget(parent) {
 
 	MessageWidget * message = new MessageWidget(this);
@@ -19,6 +21,10 @@ MainWindow::MainWindow(QWidget * parent) : QWidget(parent) {
 	layout->addWidget(repl);
 
 	this->setLayout(layout);
+
+	QtInterpreter * interp = new QtInterpreter(this);
+
+	QObject::connect(repl, SIGNAL(lineEntered(QString)), interp, SLOT(parseAndEvaluate(QString)));
 
 }
 

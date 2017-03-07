@@ -18,6 +18,9 @@ public:
 	// Default construct a REPLWidget
 	REPLWidget(QWidget * parent = nullptr);
 
+	// keyPressEvent handler
+	// If the enter key is pressed, the input text should be signaled and then cleared.
+	// @param evt The event to handle
 	void keyPressEvent(QKeyEvent * evt);
 
 signals:

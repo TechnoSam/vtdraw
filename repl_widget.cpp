@@ -10,8 +10,6 @@
 #include <QLayout>
 #include <QKeyEvent>
 
-#include <QDebug>
-
 REPLWidget::REPLWidget(QWidget * parent) : QWidget(parent) {
 
 	prompt = new QLabel(this);
@@ -31,7 +29,8 @@ REPLWidget::REPLWidget(QWidget * parent) : QWidget(parent) {
 void REPLWidget::keyPressEvent(QKeyEvent * evt) {
 
 	if (evt->key() == Qt::Key::Key_Return) {
-		qDebug()  << "Got enter key";
+		lineEntered(input->text());
+		input->clear();
 	}
 
 }
