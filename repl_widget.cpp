@@ -11,9 +11,3 @@ REPLWidget::REPLWidget(QWidget * parent) : QWidget(parent) {
 
 
 }
-
-void REPLWidget::lineEntered(QString) {
-
-
-
-}
