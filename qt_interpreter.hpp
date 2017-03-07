@@ -7,6 +7,8 @@
 #include <QObject>
 #include <QGraphicsItem>
 
+#include "interpreter.hpp"
+
 class QtInterpreter: public QObject {
 Q_OBJECT
 
@@ -30,6 +32,10 @@ public slots:
 
 	// a public slot that accepts and expression string and parses/evaluates it
 	void parseAndEvaluate(QString entry);
+
+private:
+
+	Interpreter interp;
 
 };
 
