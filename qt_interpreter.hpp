@@ -7,7 +7,8 @@
 #include <QObject>
 #include <QGraphicsItem>
 
-class QtInterpreter: QObject {
+class QtInterpreter: public QObject {
+Q_OBJECT
 
 public:
 
