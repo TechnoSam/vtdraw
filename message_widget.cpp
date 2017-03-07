@@ -11,10 +11,10 @@
 
 MessageWidget::MessageWidget(QWidget * parent): QWidget(parent) {
 
-	QLabel * messageLabel = new QLabel(this);
+	messageLabel = new QLabel(this);
 	messageLabel->setText("Message:");
 
-	QLineEdit * message = new QLineEdit(this);
+	message = new QLineEdit(this);
 	message->setReadOnly(true);
 
 	QHBoxLayout * layout = new QHBoxLayout(this);
@@ -28,7 +28,7 @@ MessageWidget::MessageWidget(QWidget * parent): QWidget(parent) {
 
 void MessageWidget::info(QString message) {
 
-
+	this->message->setText(message);
 
 }
 

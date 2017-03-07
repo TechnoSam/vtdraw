@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget * parent) : QWidget(parent) {
 	QtInterpreter * interp = new QtInterpreter(this);
 
 	QObject::connect(repl, SIGNAL(lineEntered(QString)), interp, SLOT(parseAndEvaluate(QString)));
+	QObject::connect(interp, SIGNAL(info(QString)), message, SLOT(info(QString)));
+	QObject::connect(interp, SIGNAL(error(QString)), message, SLOT(error(QString)));
 
 }
 

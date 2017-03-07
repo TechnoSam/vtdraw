@@ -5,6 +5,8 @@
 #define MESSAGE_WIDGET_H
 
 #include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
 
 class MessageWidget : public QWidget {
 Q_OBJECT
@@ -21,6 +23,12 @@ public slots:
 
 	// a public slot accepting an error message to display as selected text highlighted with a red background.
 	void error(QString message);
+
+private:
+
+	QLabel * messageLabel;
+
+	QLineEdit * message;
 
 };
 
