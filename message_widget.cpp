@@ -8,6 +8,7 @@
 #include <QString>
 #include <QLabel>
 #include <QLayout>
+#include <QPalette>
 
 #include <QDebug>
 
@@ -31,13 +32,19 @@ MessageWidget::MessageWidget(QWidget * parent): QWidget(parent) {
 void MessageWidget::info(QString message) {
 
 	this->message->setText(message);
-	qDebug() << "Info";
+	QPalette palette;
+	palette.setColor(QPalette::Base, QColor(255, 255, 255));
+	palette.setColor(QPalette::Text, QColor(0, 0, 0));
+	this->message->setPalette(palette);
 
 }
 
 void MessageWidget::error(QString message) {
 
 	this->message->setText(message);
-	qDebug() << "Error";
+	QPalette palette;
+	palette.setColor(QPalette::Base, QColor(255, 0, 0));
+	palette.setColor(QPalette::Text, QColor(255, 255, 255));
+	this->message->setPalette(palette);
 
 }
