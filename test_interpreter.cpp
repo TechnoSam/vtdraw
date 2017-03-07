@@ -462,3 +462,65 @@ TEST_CASE( "Test all syntactically and semantically CORRECT files.", "[interpret
     REQUIRE(result == expected_result);
   }
 }
+
+TEST_CASE("Tests some weird cases", "[interpreter]") {
+
+	Interpreter interp;
+
+	std::string prog1 = "(asldkjfs  sdlfsk  \n(djsl eirusl))";
+	std::string prog2 = "(if (< 5 4) True )5.2";
+	std::string prog3 = "(if 500 True False)";
+	std::string prog4 = "(* 38e-3 4.2e6)";
+
+	std::stringstream ss1(prog1);
+	REQUIRE(interp.parse(ss1));
+
+	std::stringstream ss2(prog2);
+	REQUIRE(!interp.parse(ss2));
+
+	std::stringstream ss3(prog3);
+	REQUIRE(interp.parse(ss3));
+	REQUIRE_THROWS(interp.eval());
+
+	REQUIRE(run(prog4) == Expression(159600.));
+
+}
+
+TEST_CASE("Tests edge cases previously missed", "[interpreter]") {
+
+	std::vector<std::string> programs = { "(begin)", // Too few arguments
+		"(define)", // Too few arguments
+		"(define a 2 3)", // Too many args
+		"(if)", // Too few args
+		"(if True 1 2 3)", // Too many args
+		"(define 1 2)", // Cannot define a number
+		"(@ 1)" // Valid child, but no such procedure
+	};
+
+	for (auto s : programs) {
+		Interpreter interp;
+
+		std::istringstream iss(s);
+
+		bool ok = interp.parse(iss);
+		REQUIRE(ok);
+
+		REQUIRE_THROWS_AS(interp.eval(), InterpreterSemanticError);
+	}
+
+}
+
+TEST_CASE("Tests defining a BOOL", "[interpreter]") {
+
+	Interpreter interp;
+
+	std::string prog = "(begin(define check True)(if check 1 2))";
+
+	std::istringstream iss(prog);
+
+	bool ok = interp.parse(iss);
+	REQUIRE(ok);
+
+	REQUIRE(interp.eval() == Expression(1.));
+
+}
