@@ -60,12 +60,13 @@ bool run(std::istream& program, Interpreter& interp) {
 		return false;
 	}
 	
+	interp.saveState();
 	Expression result;
 	try {
 		result = interp.eval();
 	}
 	catch (InterpreterSemanticError e) {
-		interp = Interpreter(); // Reseting the interpreter resets the environment
+		interp.restoreState();
 		std::cerr << "Error during evaluation: " << e.what() << std::endl;
 		return false;
 	}

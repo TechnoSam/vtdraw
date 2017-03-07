@@ -5,7 +5,7 @@
 
 Interpreter::Interpreter() {
 
-
+	// Nothing to do
 
 }
 
@@ -136,5 +136,17 @@ Expression Interpreter::postEval(Expression exp) {
 		return exp;
 
 	}
+
+}
+
+void Interpreter::saveState() {
+
+	save = env;
+
+}
+
+void Interpreter::restoreState() {
+
+	env = save;
 
 }

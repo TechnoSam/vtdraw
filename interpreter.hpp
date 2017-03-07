@@ -26,11 +26,18 @@ public:
 	// the exception message string should document the nature of the semantic error 
 	Expression eval();
 
+	// Saves the state of the environment so it can be restored later
+	void saveState();
+
+	// Restores the state of the environment to the last saved point
+	void restoreState();
+
 private:
 
 	Tokenizer tkn;
 	Expression AST;
 	Environment env;
+	Environment save;
 
 	Expression postEval(Expression exp);
 
