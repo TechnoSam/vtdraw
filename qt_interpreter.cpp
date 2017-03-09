@@ -17,10 +17,6 @@ QtInterpreter::QtInterpreter(QObject * parent): QObject(parent) {
 
 void QtInterpreter::parseAndEvaluate(QString entry) {
 
-	if (entry.isEmpty()) {
-		return;
-	}
-
 	std::string command = entry.toStdString();
 	std::istringstream iss(command);
 

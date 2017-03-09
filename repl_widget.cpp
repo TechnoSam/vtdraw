@@ -34,6 +34,11 @@ REPLWidget::REPLWidget(QWidget * parent) : QWidget(parent) {
 void REPLWidget::keyPressEvent(QKeyEvent * evt) {
 
 	if (evt->key() == Qt::Key::Key_Return) {
+
+		if (input->text().isEmpty()) {
+			return;
+		}
+
 		// Get an iterator to the second element in the list
 		// This is always safe because begin != end
 		std::list<QString>::iterator first = history.begin();
@@ -45,6 +50,7 @@ void REPLWidget::keyPressEvent(QKeyEvent * evt) {
 
 		lineEntered(input->text());
 		input->clear();
+
 	}
 
 	else if (evt->key() == Qt::Key::Key_Up) {
