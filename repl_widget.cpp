@@ -10,6 +10,8 @@
 #include <QLayout>
 #include <QKeyEvent>
 
+#include <QDebug>
+
 REPLWidget::REPLWidget(QWidget * parent) : QWidget(parent) {
 
 	prompt = new QLabel(this);
@@ -31,6 +33,14 @@ void REPLWidget::keyPressEvent(QKeyEvent * evt) {
 	if (evt->key() == Qt::Key::Key_Return) {
 		lineEntered(input->text());
 		input->clear();
+	}
+
+	else if (evt->key() == Qt::Key::Key_Up) {
+		qDebug() << "Up Arrow Pressed";
+	}
+
+	else if (evt->key() == Qt::Key::Key_Down) {
+		qDebug() << "Down Arrow Pressed";
 	}
 
 }
