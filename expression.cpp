@@ -45,14 +45,14 @@ Expression::Expression(const Atom& atomValue) {
 
 Expression::Expression(std::tuple<double, double> value) {
 
-
+	atom = Atom(value);
 
 }
 
 Expression::Expression(std::tuple<double, double> start,
 	std::tuple<double, double> end) {
 
-
+	atom = Atom(makeLine(start, end));
 
 }
 
@@ -60,7 +60,7 @@ Expression::Expression(std::tuple<double, double> center,
 	std::tuple<double, double> start,
 	double angle) {
 
-
+	atom = Atom(makeArc(center, start, angle));
 
 }
 

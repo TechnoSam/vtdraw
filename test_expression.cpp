@@ -7,6 +7,9 @@ TEST_CASE("Test the Expression constructors", "[expression]") {
 	Expression expBool = Expression(true);
 	Expression expNumber = Expression(2.5);
 	Expression expSymbol = Expression(std::string("Test"));
+	Expression expPoint = Expression(std::make_tuple(0., 0.));
+	Expression expLine = Expression(std::make_tuple(0., 0.), std::make_tuple(5., 5.));
+	Expression expArc = Expression(std::make_tuple(0., 0.), std::make_tuple(5., 5.), 1);
 	Expression expAtomBool = Expression(Atom(true));
 
 	REQUIRE(expNone.getAtom() == Atom());
@@ -17,6 +20,11 @@ TEST_CASE("Test the Expression constructors", "[expression]") {
 	REQUIRE(expNumber.getChildren().empty());
 	REQUIRE(expSymbol.getAtom() == Atom(std::string("Test")));
 	REQUIRE(expSymbol.getChildren().empty());
+	REQUIRE(expPoint.getAtom() == Atom(makePoint(0, 0)));
+	REQUIRE(expPoint.getChildren().empty());
+	REQUIRE(expLine.getAtom() == Atom(makeLine(makePoint(0, 0), makePoint(5, 5))));
+	REQUIRE(expLine.getChildren().empty());
+	REQUIRE(expArc.getAtom() == Atom(makeArc(makePoint(0, 0), makePoint(5, 5), 1)));
 	REQUIRE(expAtomBool.getAtom() == Atom(true));
 	REQUIRE(expAtomBool.getChildren().empty());
 
