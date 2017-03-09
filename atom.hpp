@@ -5,7 +5,10 @@
 #define ATOM_H
 
 #include <string>
+#include <tuple>
 #include <stdexcept>
+
+#include "graph.hpp"
 
 class Atom {
 
@@ -26,8 +29,14 @@ public:
 	// @param value The value to set
 	Atom(const std::string& value);
 
+	Atom(Point value);
+
+	Atom(Line value);
+
+	Atom(Arc value);
+
 	// The possible types of Atom
-	typedef enum e_AtomType {NONE, BOOL, NUMBER, SYMBOL} Type;
+	typedef enum e_AtomType {NONE, BOOL, NUMBER, SYMBOL, POINT, LINE, ARC} Type;
 	
 	// Gets the type of an Atom
 	// @return The type of the Atom
@@ -47,6 +56,12 @@ public:
 	// @return The SYMBOL value of the Atom
 	// @throw logic_error if Atom is not of type SYMBOL
 	std::string getSymbol();
+
+	Point getPoint();
+
+	Line getLine();
+
+	Arc getArc();
 
 	// Overloaded equality operator
 	// @return True if the atoms have equal type and value

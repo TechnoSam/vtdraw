@@ -22,6 +22,7 @@ set(interpreter_src
   atom.hpp atom.cpp
   env_entry.hpp env_entry.cpp
   proc.hpp proc.cpp
+  graph.hpp graph.cpp
   )
 
 # EDIT

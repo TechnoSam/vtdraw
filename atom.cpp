@@ -45,6 +45,18 @@ Atom::Atom(const std::string& value) {
 
 }
 
+Atom::Atom(Point value) {
+
+}
+
+Atom::Atom(Line value) {
+
+}
+
+Atom::Atom(Arc value) {
+
+}
+
 Atom::Type Atom::getType() {
 
 	return type;
@@ -79,6 +91,20 @@ std::string Atom::getSymbol() {
 
 	return symbolVal;
 
+}
+
+Point Atom::getPoint() {
+	return std::make_tuple(0., 0.);
+}
+
+Line Atom::getLine() {
+	Line ret;
+	return ret;
+}
+
+Arc Atom::getArc() {
+	Arc ret;
+	return ret;
 }
 
 bool Atom::operator==(const Atom& rhs) const noexcept {
