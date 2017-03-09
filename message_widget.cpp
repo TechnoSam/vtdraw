@@ -31,9 +31,9 @@ void MessageWidget::info(QString message) {
 
 	this->message->setText(message);
 	QPalette palette;
-	palette.setColor(QPalette::Base, QColor(255, 255, 255));
-	palette.setColor(QPalette::Text, QColor(0, 0, 0));
+	palette.setColor(QPalette::Highlight, QColor(51, 153, 255));
 	this->message->setPalette(palette);
+	this->message->deselect();
 
 }
 
@@ -41,8 +41,8 @@ void MessageWidget::error(QString message) {
 
 	this->message->setText(message);
 	QPalette palette;
-	palette.setColor(QPalette::Base, QColor(255, 0, 0));
-	palette.setColor(QPalette::Text, QColor(255, 255, 255));
+	palette.setColor(QPalette::Highlight, QColor(Qt::red));
 	this->message->setPalette(palette);
+	this->message->selectAll();
 
 }
