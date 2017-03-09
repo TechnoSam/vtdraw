@@ -9,6 +9,8 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QLineEdit>
+#include <list>
+#include <string>
 
 class REPLWidget : public QWidget {
 Q_OBJECT
@@ -32,6 +34,11 @@ private:
 
 	QLabel * prompt;
 	QLineEdit * input;
+	std::list<QString> history;
+	std::list<QString>::iterator historyPos;
+
+	void historyUp();
+	void historyDown();
 
 };
 
