@@ -4,36 +4,41 @@
 #include "graph.hpp"
 #include <tuple>
 
-Point makePoint(double, double) {
+Point makePoint(double x, double y) {
 
-	return std::make_tuple(0., 0.);
+	return std::make_tuple(x, y);
 
 }
 
-Line makeLine(Point, Point) {
+Line makeLine(Point first, Point second) {
 
 	Line ret;
+	ret.first = first;
+	ret.second = second;
 
 	return ret;
 
 }
 
-Arc makeArc(Point, Point, double) {
+Arc makeArc(Point center, Point start, double span) {
 
 	Arc ret;
+	ret.center = center;
+	ret.start = start;
+	ret.span = span;
 
 	return ret;
 
 }
 
-double pointX(Point) {
+double pointX(Point point) {
 
-	return 0;
+	return std::get<0>(point);
 
 }
 
-double pointY(Point) {
+double pointY(Point point) {
 
-	return 0;
+	return std::get<1>(point);
 
 }

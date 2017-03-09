@@ -29,10 +29,16 @@ public:
 	// @param value The value to set
 	Atom(const std::string& value);
 
+	// Constructs an Atom of type POINT
+	// @param value The value to set
 	Atom(Point value);
 
+	// Constructs an Atom of type LINE
+	// @param value The value to set
 	Atom(Line value);
-
+	
+	// Constructs an Atom of type ARC
+	// @param value The value to set
 	Atom(Arc value);
 
 	// The possible types of Atom
@@ -57,10 +63,19 @@ public:
 	// @throw logic_error if Atom is not of type SYMBOL
 	std::string getSymbol();
 
+	// Gets the POINT value of an Atom
+	// @return The POINT value of the Atom
+	// @throw logic_error if Atom is not of type POINT
 	Point getPoint();
 
+	// Gets the LINE value of an Atom
+	// @return The LINE value of the Atom
+	// @throw logic_error if Atom is not of type LINE
 	Line getLine();
 
+	// Gets the ARC value of an Atom
+	// @return The ARC value of the Atom
+	// @throw logic_error if Atom is not of type ARC
 	Arc getArc();
 
 	// Overloaded equality operator
@@ -80,6 +95,12 @@ private:
 	double numberVal;
 
 	std::string symbolVal;
+
+	Point pointVal;
+
+	Line lineVal;
+
+	Arc arcVal;
 
 };
 

@@ -19,6 +19,12 @@ Atom::Atom(bool value) {
 
 	symbolVal = "";
 
+	pointVal = Point();
+
+	lineVal = Line();
+
+	arcVal = Arc();
+
 }
 
 Atom::Atom(double value) {
@@ -30,6 +36,12 @@ Atom::Atom(double value) {
 	numberVal = value;
 
 	symbolVal = "";
+
+	pointVal = Point();
+
+	lineVal = Line();
+
+	arcVal = Arc();
 
 }
 
@@ -43,17 +55,64 @@ Atom::Atom(const std::string& value) {
 
 	symbolVal = value;
 
+	pointVal = Point();
+
+	lineVal = Line();
+
+	arcVal = Arc();
+
 }
 
 Atom::Atom(Point value) {
 
+	type = Atom::Type::POINT;
+
+	boolVal = false;
+
+	numberVal = 0.0;
+
+	symbolVal = "";
+
+	pointVal = value;
+
+	lineVal = Line();
+
+	arcVal = Arc();
 }
 
 Atom::Atom(Line value) {
 
+	type = Atom::Type::LINE;
+
+	boolVal = false;
+
+	numberVal = 0.0;
+
+	symbolVal = "";
+
+	pointVal = Point();
+
+	lineVal = value;
+
+	arcVal = Arc();
+
 }
 
 Atom::Atom(Arc value) {
+
+	type = Atom::Type::ARC;
+
+	boolVal = false;
+
+	numberVal = 0.0;
+
+	symbolVal = "";
+
+	pointVal = Point();
+
+	lineVal = Line();
+
+	arcVal = value;
 
 }
 
@@ -94,17 +153,32 @@ std::string Atom::getSymbol() {
 }
 
 Point Atom::getPoint() {
-	return std::make_tuple(0., 0.);
+
+	if (type != Atom::Type::POINT) {
+		throw std::logic_error("Atom is not of type Point");
+	}
+
+	return pointVal;
+
 }
 
 Line Atom::getLine() {
-	Line ret;
-	return ret;
+
+	if (type != Atom::Type::LINE) {
+		throw std::logic_error("Atom is not of type Line");
+	}
+
+	return lineVal;
 }
 
 Arc Atom::getArc() {
-	Arc ret;
-	return ret;
+	
+	if (type != Atom::Type::ARC) {
+		throw std::logic_error("Atom is not of type Arc");
+	}
+
+	return arcVal;
+
 }
 
 bool Atom::operator==(const Atom& rhs) const noexcept {
@@ -124,6 +198,18 @@ bool Atom::operator==(const Atom& rhs) const noexcept {
 			break;
 		case Atom::Type::SYMBOL:
 			isEqual = (this->symbolVal == rhs.symbolVal);
+			break;
+		case Atom::Type::POINT:
+			isEqual = (this->pointVal == rhs.pointVal);
+			break;
+		case Atom::Type::LINE:
+			isEqual = (this->lineVal.first == rhs.lineVal.first &&
+				this->lineVal.second == rhs.lineVal.second);
+			break;
+		case Atom::Type::ARC:
+			isEqual = (this->arcVal.center == rhs.arcVal.center &&
+				this->arcVal.start == rhs.arcVal.start &&
+				this->arcVal.span == rhs.arcVal.span);
 			break;
 		}
 	}
