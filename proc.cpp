@@ -2,6 +2,7 @@
 // Author: Samuel McFalls
 
 #include "proc.hpp"
+#include <math.h>
 
 bool notProc(std::vector<Atom> args) {
 
@@ -238,19 +239,40 @@ double divProc(std::vector<Atom> args) {
 
 double sinProc(std::vector<Atom> args) {
 
-	return 0;
+	if (args.size() != 1) {
+		throw InterpreterSemanticError("Incorrect number of arguments to unary SIN procedure");
+	}
+	if (args.at(0).getType() != Atom::Type::NUMBER) {
+		throw InterpreterSemanticError("Improper type for NUMBER SIN procedure");
+	}
+
+	return sin(args.at(0).getNumber());
 
 }
 
 double cosProc(std::vector<Atom> args) {
 
-	return 0;
+	if (args.size() != 1) {
+		throw InterpreterSemanticError("Incorrect number of arguments to unary COS procedure");
+	}
+	if (args.at(0).getType() != Atom::Type::NUMBER) {
+		throw InterpreterSemanticError("Improper type for NUMBER COS procedure");
+	}
+
+	return cos(args.at(0).getNumber());
 
 }
 
 double arctanProc(std::vector<Atom> args) {
 
-	return 0;
+	if (args.size() != 2) {
+		throw InterpreterSemanticError("Incorrect number of arguments to binary ARCTAN procedure");
+	}
+	if (args.at(0).getType() != Atom::Type::NUMBER || args.at(1).getType() != Atom::Type::NUMBER) {
+		throw InterpreterSemanticError("Improper type for NUMBER ARCTAN procedure");
+	}
+
+	return atan2(args.at(0).getNumber(), args.at(1).getNumber());
 
 }
 

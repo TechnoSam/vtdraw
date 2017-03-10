@@ -43,6 +43,15 @@ Environment::Environment() {
 	EnvEntry::fptrNumber divFptr = divProc;
 	env[std::string("/")] = EnvEntry(divFptr);
 
+	EnvEntry::fptrNumber sinFptr = sinProc;
+	env[std::string("sin")] = EnvEntry(sinFptr);
+
+	EnvEntry::fptrNumber cosFptr = cosProc;
+	env[std::string("cos")] = EnvEntry(cosFptr);
+
+	EnvEntry::fptrNumber arctanFptr = arctanProc;
+	env[std::string("arctan")] = EnvEntry(arctanFptr);
+
 }
 
 void Environment::define(std::string symbol, EnvEntry entry) {
