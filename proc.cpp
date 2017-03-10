@@ -235,3 +235,39 @@ double divProc(std::vector<Atom> args) {
 	return args.at(0).getNumber() / args.at(1).getNumber();
 
 }
+
+double sinProc(std::vector<Atom> args) {
+
+	return 0;
+
+}
+
+double cosProc(std::vector<Atom> args) {
+
+	return 0;
+
+}
+
+double arctanProc(std::vector<Atom> args) {
+
+	return 0;
+
+}
+
+Point pointProc(std::vector<Atom> args) {
+
+	return Point();
+
+}
+
+Line lineProc(std::vector<Atom> args) {
+
+	return Line();
+
+}
+
+Arc arcProc(std::vector<Atom> args) {
+
+	return Arc();
+
+}

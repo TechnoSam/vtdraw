@@ -336,3 +336,53 @@ TEST_CASE("Tests the div procedure", "[proc]") {
 	REQUIRE_THROWS(divProc(args));
 
 }
+
+TEST_CASE("Tests the sin procedure", "[proc]") {
+
+	std::vector<Atom> args = { Atom(1.0) };
+	REQUIRE(sinProc(args) == sin(1.0));
+
+	args.clear();
+	REQUIRE_THROWS(sinProc(args));
+
+	args = { Atom(1.0), Atom(2.0) };
+	REQUIRE_THROWS(sinProc(args));
+
+	args.clear();
+	args = { Atom(false) };
+	REQUIRE_THROWS(sinProc(args));
+
+}
+
+TEST_CASE("Tests the cos procedure", "[proc]") {
+
+	std::vector<Atom> args = { Atom(1.0) };
+	REQUIRE(cosProc(args) == cos(1.0));
+
+	args.clear();
+	REQUIRE_THROWS(cosProc(args));
+
+	args = { Atom(1.0), Atom(2.0) };
+	REQUIRE_THROWS(cosProc(args));
+
+	args.clear();
+	args = { Atom(false) };
+	REQUIRE_THROWS(cosProc(args));
+
+}
+
+TEST_CASE("Tests the arctan procedure", "[proc]") {
+
+	std::vector<Atom> args = { Atom(0.0), Atom(-1.0) };
+	REQUIRE(arctanProc(args) == atan2(0, -1));
+
+	args.clear();
+	REQUIRE_THROWS(arctanProc(args));
+
+	args = { Atom(0.0), Atom(1.0), Atom(2.0) };
+	REQUIRE_THROWS(arctanProc(args));
+
+	args.clear();
+	args = { Atom(false), Atom(true) };
+	REQUIRE_THROWS(arctanProc(args));
+}

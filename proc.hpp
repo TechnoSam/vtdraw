@@ -94,3 +94,45 @@ double multProc(std::vector<Atom> args);
 // @throw InterpreterSemanticError if improper number of arguments
 // @throw InterpreterSemanticError if arguments are of incorrect type
 double divProc(std::vector<Atom> args);
+
+// unary expression of Numbers
+// @param args The arguments to the procedure. Required NUMBER type
+// @return the sin of the argument
+// @throw InterpreterSemanticError if improper number of arguments
+// @throw InterpreterSemanticError if argumet is of incorrect type
+double sinProc(std::vector<Atom> args);
+
+// unary expression of Numbers
+// @param args The arguments to the procedure. Required NUMBER type
+// @return the cos of the argument
+// @throw InterpreterSemanticError if improper number of arguments
+// @throw InterpreterSemanticError if argumet is of incorrect type
+double cosProc(std::vector<Atom> args);
+
+// binary expression of Numbers
+// @param args The arguments to the procedure. Required NUMBER type
+// @return the arctan of the arguments, 1 - y, 2 - x
+// @throw InterpreterSemanticError if improper number of arguments
+// @throw InterpreterSemanticError if argumets are of incorrect type
+double arctanProc(std::vector<Atom> args);
+
+// binary expression of Numbers
+// @param args The arguments to the procedure. Required NUMBER type
+// @return a point from the given coordinates
+// @throw InterpreterSemanticError if improper number of arguments
+// @throw InterpreterSemanticError if argumets are of incorrect type
+Point pointProc(std::vector<Atom> args);
+
+// binary expression of Point
+// @param args The arguments to the procedure. Required NUMBER type
+// @return a line from the given points
+// @throw InterpreterSemanticError if improper number of arguments
+// @throw InterpreterSemanticError if argumets are of incorrect type
+Line lineProc(std::vector<Atom> args);
+
+// tertiary expression of Points and a Number
+// @param args The arguments to the procedure. Required POINT POINT NUMBER
+// @return an arc from the given points and number
+// @throw InterpreterSemanticError if improper number of arguments
+// @throw InterpreterSemanticError if argumets are of incorrect type
+Arc arcProc(std::vector<Atom> args);
