@@ -11,6 +11,9 @@ EnvEntry::EnvEntry() {
 	numberVal = 0.0;
 	boolFunc = nullptr;
 	numberFunc = nullptr;
+	pointVal = Point();
+	lineVal = Line();
+	arcVal = Arc();
 
 }
 
@@ -22,6 +25,9 @@ EnvEntry::EnvEntry(bool value) {
 	numberVal = 0.0;
 	boolFunc = nullptr;
 	numberFunc = nullptr;
+	pointVal = Point();
+	lineVal = Line();
+	arcVal = Arc();
 
 }
 
@@ -33,6 +39,9 @@ EnvEntry::EnvEntry(double value) {
 	numberVal = value;
 	boolFunc = nullptr;
 	numberFunc = nullptr;
+	pointVal = Point();
+	lineVal = Line();
+	arcVal = Arc();
 
 }
 
@@ -44,6 +53,9 @@ EnvEntry::EnvEntry(fptrBool func) {
 	numberVal = 0.0;
 	boolFunc = func;
 	numberFunc = nullptr;
+	pointVal = Point();
+	lineVal = Line();
+	arcVal = Arc();
 
 }
 
@@ -55,18 +67,51 @@ EnvEntry::EnvEntry(fptrNumber func) {
 	numberVal = 0.0;
 	boolFunc = nullptr;
 	numberFunc = func;
+	pointVal = Point();
+	lineVal = Line();
+	arcVal = Arc();
 
 }
 
 EnvEntry::EnvEntry(Point value) {
 
+	type = POINT;
+
+	boolVal = false;
+	numberVal = 0.0;
+	boolFunc = nullptr;
+	numberFunc = nullptr;
+	pointVal = value;
+	lineVal = Line();
+	arcVal = Arc();
+
 }
 
 EnvEntry::EnvEntry(Line value) {
 
+	type = LINE;
+
+	boolVal = false;
+	numberVal = 0.0;
+	boolFunc = nullptr;
+	numberFunc = nullptr;
+	pointVal = Point();
+	lineVal = value;
+	arcVal = Arc();
+
 }
 
 EnvEntry::EnvEntry(Arc value) {
+
+	type = ARC;
+
+	boolVal = false;
+	numberVal = 0.0;
+	boolFunc = nullptr;
+	numberFunc = nullptr;
+	pointVal = Point();
+	lineVal = Line();
+	arcVal = value;
 
 }
 
@@ -118,17 +163,29 @@ EnvEntry::fptrNumber EnvEntry::getFptrNumber() {
 
 Point EnvEntry::getPoint() {
 
+	if (type != POINT) {
+		throw std::logic_error("Environment Entry is not of type Point");
+	}
+
 	return pointVal;
 
 }
 
 Line EnvEntry::getLine() {
 
+	if (type != LINE) {
+		throw std::logic_error("Environment Entry is not of type Line");
+	}
+
 	return lineVal;
 
 }
 
 Arc EnvEntry::getArc() {
+
+	if (type != ARC) {
+		throw std::logic_error("Environment Entry is not of type Arc");
+	}
 
 	return arcVal;
 

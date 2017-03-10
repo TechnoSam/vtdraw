@@ -53,7 +53,7 @@ TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 	REQUIRE(eNumber.getNumber() == 2.5);
 	REQUIRE(eBoolFunc.getFptrBool()(args1));
 	REQUIRE(eNumFunc.getFptrNumber()(args1) == 3.0);
-	REQUIRE(ePoint.getPoint() == makePoint(0, 0));
+	REQUIRE(ePoint.getPoint() == makePoint(1, 2));
 	REQUIRE(eLine.getLine().first == makePoint(0, 0));
 	REQUIRE(eLine.getLine().second == makePoint(5, 5));
 	REQUIRE(eArc.getArc().center == makePoint(0, 0));
