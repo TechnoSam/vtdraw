@@ -58,6 +58,18 @@ EnvEntry::EnvEntry(fptrNumber func) {
 
 }
 
+EnvEntry::EnvEntry(Point value) {
+
+}
+
+EnvEntry::EnvEntry(Line value) {
+
+}
+
+EnvEntry::EnvEntry(Arc value) {
+
+}
+
 EnvEntry::Type EnvEntry::getType() {
 
 	return type;
@@ -101,5 +113,23 @@ EnvEntry::fptrNumber EnvEntry::getFptrNumber() {
 	}
 
 	return numberFunc;
+
+}
+
+Point EnvEntry::getPoint() {
+
+	return pointVal;
+
+}
+
+Line EnvEntry::getLine() {
+
+	return lineVal;
+
+}
+
+Arc EnvEntry::getArc() {
+
+	return arcVal;
 
 }

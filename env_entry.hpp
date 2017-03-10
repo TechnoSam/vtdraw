@@ -7,13 +7,14 @@
 #include <vector>
 
 #include "atom.hpp"
+#include "graph.hpp"
 
 class EnvEntry {
 
 public:
 
 	// Typdef for the possible types of Environment Entry
-	typedef enum e_Env {NONE, BOOL, NUMBER, FPTR_BOOL, FPTR_NUMBER} Type;
+	typedef enum e_Env {NONE, BOOL, NUMBER, POINT, LINE, ARC, FPTR_BOOL, FPTR_NUMBER} Type;
 
 	// Typedef for a function pointer that takes a vector of Atoms as input and 
 	// produces a bool output
@@ -36,6 +37,21 @@ public:
 	// Set the type to NUMBER
 	// @param value The value store
 	EnvEntry(double value);
+
+	// Contructs an entry with a point
+	// Set the type to POINT
+	// @param value The value store
+	EnvEntry(Point value);
+
+	// Contructs an entry with a line
+	// Set the type to LINE
+	// @param value The value store
+	EnvEntry(Line value);
+
+	// Contructs an entry with a arc
+	// Set the type to ARC
+	// @param value The value store
+	EnvEntry(Arc value);
 
 	// Contructs an entry with a fptrBool
 	// Set the type to FPTR_BOOL
@@ -61,6 +77,21 @@ public:
 	// @throws logic_error if EnvEntry is not of type NUMBER
 	double getNumber();
 
+	// Gets the POINT value of an EnvEntry
+	// @return The POINT value of the EnvEntry
+	// @throws logic_error if EnvEntry is not of type POINT
+	Point getPoint();
+
+	// Gets the LINE value of an EnvEntry
+	// @return The LINE value of the EnvEntry
+	// @throws logic_error if EnvEntry is not of type LINE
+	Line getLine();
+
+	// Gets the ARC value of an EnvEntry
+	// @return The ARC value of the EnvEntry
+	// @throws logic_error if EnvEntry is not of type ARC
+	Arc getArc();
+
 	// Gets the FPTR_BOOL value of an EnvEntry
 	// @return The FPTR_BOOL value of the EnvEntry
 	// @throws logic_error if EnvEntry is not of type FPTR_BOOL
@@ -78,6 +109,12 @@ private:
 	bool boolVal;
 
 	double numberVal;
+
+	Point pointVal;
+
+	Line lineVal;
+
+	Arc arcVal;
 
 	fptrBool boolFunc;
 
