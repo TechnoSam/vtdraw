@@ -52,6 +52,15 @@ Environment::Environment() {
 	EnvEntry::fptrNumber arctanFptr = arctanProc;
 	env[std::string("arctan")] = EnvEntry(arctanFptr);
 
+	EnvEntry::fptrPoint pointFptr = pointProc;
+	env[std::string("point")] = EnvEntry(pointFptr);
+
+	EnvEntry::fptrLine lineFptr = lineProc;
+	env[std::string("line")] = EnvEntry(lineFptr);
+
+	EnvEntry::fptrArc arcFptr = arcProc;
+	env[std::string("arc")] = EnvEntry(arcFptr);
+
 }
 
 void Environment::define(std::string symbol, EnvEntry entry) {

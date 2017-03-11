@@ -278,18 +278,40 @@ double arctanProc(std::vector<Atom> args) {
 
 Point pointProc(std::vector<Atom> args) {
 
-	return Point();
+	if (args.size() != 2) {
+		throw InterpreterSemanticError("Incorrect number of arguments to binary POINT procedure");
+	}
+	if (args.at(0).getType() != Atom::Type::NUMBER || args.at(1).getType() != Atom::Type::NUMBER) {
+		throw InterpreterSemanticError("Improper type for NUMBER POINT procedure");
+	}
+	
+	return makePoint(args.at(0).getNumber(), args.at(1).getNumber());
 
 }
 
 Line lineProc(std::vector<Atom> args) {
 
-	return Line();
+	if (args.size() != 2) {
+		throw InterpreterSemanticError("Incorrect number of arguments to binary LINE procedure");
+	}
+	if (args.at(0).getType() != Atom::Type::POINT || args.at(1).getType() != Atom::Type::POINT) {
+		throw InterpreterSemanticError("Improper type for POINT LINE procedure");
+	}
+
+	return makeLine(args.at(0).getPoint(), args.at(1).getPoint());
 
 }
 
 Arc arcProc(std::vector<Atom> args) {
 
-	return Arc();
+	if (args.size() != 3) {
+		throw InterpreterSemanticError("Incorrect number of arguments to tertiary ARC procedure");
+	}
+	if (args.at(0).getType() != Atom::Type::POINT || args.at(1).getType() != Atom::Type::POINT ||
+		args.at(2).getType() != Atom::Type::NUMBER) {
+		throw InterpreterSemanticError("Improper type for POINT POINT NUMBER ARC procedure");
+	}
+
+	return makeArc(args.at(0).getPoint(), args.at(1).getPoint(), args.at(2).getNumber());
 
 }

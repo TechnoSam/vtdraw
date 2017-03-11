@@ -107,7 +107,11 @@ Expression Interpreter::postEval(Expression exp) {
 	if (exp.getAtom().getType() == Atom::Type::SYMBOL) {
 		if (env.exists(exp.getAtom().getSymbol())) {
 			proc = env.fetch(exp.getAtom().getSymbol());
-			if (proc.getType() == EnvEntry::Type::FPTR_BOOL || proc.getType() == EnvEntry::Type::FPTR_NUMBER) {
+			if (proc.getType() == EnvEntry::Type::FPTR_BOOL ||
+				proc.getType() == EnvEntry::Type::FPTR_NUMBER ||
+				proc.getType() == EnvEntry::Type::FPTR_POINT ||
+				proc.getType() == EnvEntry::Type::FPTR_LINE ||
+				proc.getType() == EnvEntry::Type::FPTR_ARC) {
 				isProc = true;
 			}
 		}
@@ -118,7 +122,16 @@ Expression Interpreter::postEval(Expression exp) {
 		if (proc.getType() == EnvEntry::Type::FPTR_BOOL) {
 			return Expression(proc.getFptrBool()(args));
 		}
-		return Expression(proc.getFptrNumber()(args));
+		if (proc.getType() == EnvEntry::Type::FPTR_NUMBER) {
+			return Expression(proc.getFptrNumber()(args));
+		}
+		if (proc.getType() == EnvEntry::Type::FPTR_POINT) {
+			return Expression(proc.getFptrPoint()(args));
+		}
+		if (proc.getType() == EnvEntry::Type::FPTR_LINE) {
+			return Expression(proc.getFptrLine()(args));
+		}
+		return Expression(proc.getFptrArc()(args));
 
 	}
 	else {

@@ -386,3 +386,57 @@ TEST_CASE("Tests the arctan procedure", "[proc]") {
 	args = { Atom(false), Atom(true) };
 	REQUIRE_THROWS(arctanProc(args));
 }
+
+TEST_CASE("Tests the point procedure", "[proc]") {
+
+	std::vector<Atom> args = { Atom(0.0), Atom(0.0) };
+	REQUIRE(pointProc(args) == makePoint(0, 0));
+
+	args.clear();
+	REQUIRE_THROWS(pointProc(args));
+
+	args = { Atom(0.0), Atom(1.0), Atom(2.0) };
+	REQUIRE_THROWS(pointProc(args));
+
+	args.clear();
+	args = { Atom(false), Atom(true) };
+	REQUIRE_THROWS(pointProc(args));
+
+}
+
+TEST_CASE("Tests the line procedure", "[proc]") {
+
+	std::vector<Atom> args = { Atom(makePoint(0, 0)), Atom(makePoint(5, 5)) };
+	REQUIRE(lineProc(args).first == makePoint(0, 0));
+	REQUIRE(lineProc(args).second == makePoint(5, 5));
+
+	args.clear();
+	REQUIRE_THROWS(lineProc(args));
+
+	args = { Atom(makePoint(0, 0)), Atom(makePoint(5, 5)), Atom(makePoint(19, 19)) };
+	REQUIRE_THROWS(lineProc(args));
+
+	args.clear();
+	args = { Atom(false), Atom(true) };
+	REQUIRE_THROWS(lineProc(args));
+
+}
+
+TEST_CASE("Tests the arc procedure", "[proc]") {
+
+	std::vector<Atom> args = { Atom(makePoint(0, 0)), Atom(makePoint(5, 5)), Atom(1.0) };
+	REQUIRE(arcProc(args).center == makePoint(0, 0));
+	REQUIRE(arcProc(args).start == makePoint(5, 5));
+	REQUIRE(arcProc(args).span == 1);
+
+	args.clear();
+	REQUIRE_THROWS(arcProc(args));
+
+	args = { Atom(makePoint(0, 0)), Atom(makePoint(5, 5)), Atom(1.0), Atom(0.0) };
+	REQUIRE_THROWS(arcProc(args));
+
+	args.clear();
+	args = { Atom(false), Atom(true), Atom(false) };
+	REQUIRE_THROWS(lineProc(args));
+
+}
