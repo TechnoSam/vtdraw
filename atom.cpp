@@ -2,6 +2,7 @@
 // Author: Samuel McFalls
 
 #include "atom.hpp"
+#include <algorithm>
 
 Atom::Atom() {
 
@@ -194,7 +195,7 @@ bool Atom::operator==(const Atom& rhs) const noexcept {
 			isEqual = (this->boolVal == rhs.boolVal);
 			break;
 		case Atom::Type::NUMBER:
-			isEqual = (this->numberVal == rhs.numberVal);
+			isEqual = this->numberVal == rhs.numberVal || std::abs(this->numberVal - rhs.numberVal) < std::numeric_limits<double>::epsilon();
 			break;
 		case Atom::Type::SYMBOL:
 			isEqual = (this->symbolVal == rhs.symbolVal);
