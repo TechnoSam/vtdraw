@@ -14,7 +14,7 @@ class EnvEntry {
 public:
 
 	// Typdef for the possible types of Environment Entry
-	typedef enum e_Env {NONE, BOOL, NUMBER, POINT, LINE, ARC, FPTR_BOOL, FPTR_NUMBER} Type;
+	typedef enum e_Env {NONE, BOOL, NUMBER, POINT, LINE, ARC, FPTR_BOOL, FPTR_NUMBER, FPTR_POINT, FPTR_LINE, FPTR_ARC} Type;
 
 	// Typedef for a function pointer that takes a vector of Atoms as input and 
 	// produces a bool output
@@ -23,6 +23,18 @@ public:
 	// Typedef for a function pointer that takes a vector of Atoms as input and 
 	// produces a double output
 	typedef double(*fptrNumber)(std::vector<Atom>);
+
+	// Typedef for a function pointer that takes a vector of Atoms as input and 
+	// produces a point output
+	typedef Point(*fptrPoint)(std::vector<Atom>);
+
+	// Typedef for a function pointer that takes a vector of Atoms as input and 
+	// produces a line output
+	typedef Line(*fptrLine)(std::vector<Atom>);
+
+	// Typedef for a function pointer that takes a vector of Atoms as input and 
+	// produces an arc output
+	typedef Arc(*fptrArc)(std::vector<Atom>);
 
 	// Default constructor
 	// Type NONE with no value
@@ -63,6 +75,21 @@ public:
 	// @param func The function store
 	EnvEntry(fptrNumber func);
 
+	// Contructs an entry with a fptrPoint
+	// Set the type to FPTR_POINT
+	// @param func The function store
+	EnvEntry(fptrPoint func);
+
+	// Contructs an entry with a fptrLine
+	// Set the type to FPTR_LINE
+	// @param func The function store
+	EnvEntry(fptrLine func);
+
+	// Contructs an entry with a fptrArc
+	// Set the type to FPTR_ARC
+	// @param func The function store
+	EnvEntry(fptrArc func);
+
 	// Gets the type of an EnvEntry
 	// @return The type of the EnvEntry
 	Type getType();
@@ -102,6 +129,21 @@ public:
 	// @throws logic_error if EnvEntry is not of type FPTR_NUMBER
 	fptrNumber getFptrNumber();
 
+	// Gets the FPTR_POINT value of an EnvEntry
+	// @return The FPTR_POINT value of the EnvEntry
+	// @throws logic_error if EnvEntry is not of type FPTR_POINT
+	fptrPoint getFptrPoint();
+
+	// Gets the FPTR_LINE value of an EnvEntry
+	// @return The FPTR_LINE value of the EnvEntry
+	// @throws logic_error if EnvEntry is not of type FPTR_LINE
+	fptrLine getFptrLine();
+
+	// Gets the FPTR_ARC value of an EnvEntry
+	// @return The FPTR_ARC value of the EnvEntry
+	// @throws logic_error if EnvEntry is not of type FPTR_ARC
+	fptrArc getFptrArc();
+
 private:
 
 	Type type;
@@ -119,6 +161,12 @@ private:
 	fptrBool boolFunc;
 
 	fptrNumber numberFunc;
+
+	fptrPoint pointFunc;
+
+	fptrLine lineFunc;
+
+	fptrArc arcFunc;
 
 };
 

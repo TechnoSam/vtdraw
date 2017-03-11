@@ -22,6 +22,24 @@ double numberFunc(std::vector<Atom> args) {
 
 }
 
+Point pointFunc(std::vector<Atom> args) {
+
+	return makePoint(0, 0);
+
+}
+
+Line lineFunc(std::vector<Atom> args) {
+
+	return makeLine(makePoint(0, 0), makePoint(5, 5));
+
+}
+
+Arc arcFunc(std::vector<Atom> args) {
+
+	return makeArc(makePoint(0, 0), makePoint(5, 5), 1);
+
+}
+
 TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 
 	EnvEntry eNone = EnvEntry();
@@ -34,6 +52,12 @@ TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 	EnvEntry ePoint = EnvEntry(makePoint(1, 2));
 	EnvEntry eLine = EnvEntry(makeLine(makePoint(0, 0), makePoint(5, 5)));
 	EnvEntry eArc = EnvEntry(makeArc(makePoint(0, 0), makePoint(5, 5), 1));
+	EnvEntry::fptrPoint pointFuncPtr = pointFunc;
+	EnvEntry ePointFunc = EnvEntry(pointFuncPtr);
+	EnvEntry::fptrLine lineFuncPtr = lineFunc;
+	EnvEntry eLineFunc = EnvEntry(lineFuncPtr);
+	EnvEntry::fptrArc arcFuncPtr = arcFunc;
+	EnvEntry eArcFunc = EnvEntry(arcFuncPtr);
 
 	REQUIRE(eNone.getType() == EnvEntry::Type::NONE);
 	REQUIRE(eBool.getType() == EnvEntry::Type::BOOL);
@@ -43,6 +67,9 @@ TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 	REQUIRE(ePoint.getType() == EnvEntry::Type::POINT);
 	REQUIRE(eLine.getType() == EnvEntry::Type::LINE);
 	REQUIRE(eArc.getType() == EnvEntry::Type::ARC);
+	REQUIRE(ePointFunc.getType() == EnvEntry::Type::FPTR_POINT);
+	REQUIRE(eLineFunc.getType() == EnvEntry::Type::FPTR_LINE);
+	REQUIRE(eArcFunc.getType() == EnvEntry::Type::FPTR_ARC);
 
 	std::vector<Atom> args1;
 	args1.push_back(Atom(1.0));
@@ -59,6 +86,12 @@ TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 	REQUIRE(eArc.getArc().center == makePoint(0, 0));
 	REQUIRE(eArc.getArc().start == makePoint(5, 5));
 	REQUIRE(eArc.getArc().span == 1);
+	REQUIRE(ePointFunc.getFptrPoint()(args1) == makePoint(0, 0));
+	REQUIRE(eLineFunc.getFptrLine()(args1).first == makePoint(0, 0));
+	REQUIRE(eLineFunc.getFptrLine()(args1).second == makePoint(5, 5));
+	REQUIRE(eArcFunc.getFptrArc()(args1).center == makePoint(0, 0));
+	REQUIRE(eArcFunc.getFptrArc()(args1).start == makePoint(5, 5));
+	REQUIRE(eArcFunc.getFptrArc()(args1).span == 1);
 
 }
 
@@ -74,6 +107,12 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	EnvEntry ePoint = EnvEntry(makePoint(1, 2));
 	EnvEntry eLine = EnvEntry(makeLine(makePoint(0, 0), makePoint(5, 5)));
 	EnvEntry eArc = EnvEntry(makeArc(makePoint(0, 0), makePoint(5, 5), 1));
+	EnvEntry::fptrPoint pointFuncPtr = pointFunc;
+	EnvEntry ePointFunc = EnvEntry(pointFuncPtr);
+	EnvEntry::fptrLine lineFuncPtr = lineFunc;
+	EnvEntry eLineFunc = EnvEntry(lineFuncPtr);
+	EnvEntry::fptrArc arcFuncPtr = arcFunc;
+	EnvEntry eArcFunc = EnvEntry(arcFuncPtr);
 
 	REQUIRE_THROWS_AS(eNone.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eNone.getNumber(), std::logic_error);
@@ -82,6 +121,9 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eNone.getPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eNone.getLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eNone.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(eNone.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eNone.getFptrLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eNone.getFptrArc(), std::logic_error);
 
 	REQUIRE_THROWS_AS(eBool.getNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(eBool.getFptrBool(), std::logic_error);
@@ -89,6 +131,9 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eBool.getPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eBool.getLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eBool.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(eBool.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eBool.getFptrLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eBool.getFptrArc(), std::logic_error);
 
 	REQUIRE_THROWS_AS(eNumber.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumber.getFptrBool(), std::logic_error);
@@ -96,6 +141,9 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eNumber.getPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumber.getLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumber.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(eNumber.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eNumber.getFptrLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eNumber.getFptrArc(), std::logic_error);
 
 	REQUIRE_THROWS_AS(eBoolFunc.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eBoolFunc.getNumber(), std::logic_error);
@@ -103,6 +151,9 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eBoolFunc.getPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eBoolFunc.getLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eBoolFunc.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(eBoolFunc.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eBoolFunc.getFptrLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eBoolFunc.getFptrArc(), std::logic_error);
 
 	REQUIRE_THROWS_AS(eNumFunc.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumFunc.getNumber(), std::logic_error);
@@ -110,6 +161,9 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eNumFunc.getPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumFunc.getLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumFunc.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(eNumFunc.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eNumFunc.getFptrLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eNumFunc.getFptrArc(), std::logic_error);
 
 	REQUIRE_THROWS_AS(ePoint.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(ePoint.getNumber(), std::logic_error);
@@ -117,6 +171,9 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(ePoint.getFptrNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(ePoint.getLine(), std::logic_error);
 	REQUIRE_THROWS_AS(ePoint.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(ePoint.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(ePoint.getFptrLine(), std::logic_error);
+	REQUIRE_THROWS_AS(ePoint.getFptrArc(), std::logic_error);
 
 	REQUIRE_THROWS_AS(eLine.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eLine.getNumber(), std::logic_error);
@@ -124,6 +181,9 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eLine.getFptrNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(eLine.getPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eLine.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(eLine.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eLine.getFptrLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eLine.getFptrArc(), std::logic_error);
 
 	REQUIRE_THROWS_AS(eArc.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eArc.getNumber(), std::logic_error);
@@ -131,5 +191,38 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eArc.getFptrNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(eArc.getPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eArc.getLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eArc.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eArc.getFptrLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eArc.getFptrArc(), std::logic_error);
+
+	REQUIRE_THROWS_AS(ePointFunc.getBool(), std::logic_error);
+	REQUIRE_THROWS_AS(ePointFunc.getNumber(), std::logic_error);
+	REQUIRE_THROWS_AS(ePointFunc.getFptrBool(), std::logic_error);
+	REQUIRE_THROWS_AS(ePointFunc.getFptrNumber(), std::logic_error);
+	REQUIRE_THROWS_AS(ePointFunc.getPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(ePointFunc.getLine(), std::logic_error);
+	REQUIRE_THROWS_AS(ePointFunc.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(ePointFunc.getFptrLine(), std::logic_error);
+	REQUIRE_THROWS_AS(ePointFunc.getFptrArc(), std::logic_error);
+
+	REQUIRE_THROWS_AS(eLineFunc.getBool(), std::logic_error);
+	REQUIRE_THROWS_AS(eLineFunc.getNumber(), std::logic_error);
+	REQUIRE_THROWS_AS(eLineFunc.getFptrBool(), std::logic_error);
+	REQUIRE_THROWS_AS(eLineFunc.getFptrNumber(), std::logic_error);
+	REQUIRE_THROWS_AS(eLineFunc.getPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eLineFunc.getLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eLineFunc.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(eLineFunc.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eLineFunc.getFptrArc(), std::logic_error);
+
+	REQUIRE_THROWS_AS(eArcFunc.getBool(), std::logic_error);
+	REQUIRE_THROWS_AS(eArcFunc.getNumber(), std::logic_error);
+	REQUIRE_THROWS_AS(eArcFunc.getFptrBool(), std::logic_error);
+	REQUIRE_THROWS_AS(eArcFunc.getFptrNumber(), std::logic_error);
+	REQUIRE_THROWS_AS(eArcFunc.getPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eArcFunc.getLine(), std::logic_error);
+	REQUIRE_THROWS_AS(eArcFunc.getArc(), std::logic_error);
+	REQUIRE_THROWS_AS(eArcFunc.getFptrPoint(), std::logic_error);
+	REQUIRE_THROWS_AS(eArcFunc.getFptrLine(), std::logic_error);
 
 }
