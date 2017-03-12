@@ -6,7 +6,7 @@
 
 #include <QGraphicsEllipseItem>
 
-class QGraphicsArcItem : QGraphicsEllipseItem {
+class QGraphicsArcItem : public QGraphicsEllipseItem {
 
 	void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
 
