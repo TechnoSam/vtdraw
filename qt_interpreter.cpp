@@ -2,9 +2,13 @@
 // Author: Samuel McFalls
 
 #include "qt_interpreter.hpp"
+#include "qgraphics_arc_item.hpp"
 
 #include <QObject>
 #include <QGraphicsItem>
+#include <QBrush>
+#include <QLineF>
+#include <QtMath>
 
 #include <string>
 #include <sstream>
@@ -30,6 +34,7 @@ void QtInterpreter::parseAndEvaluate(QString entry) {
 	Expression result;
 	try {
 		result = interp.eval();
+		createGraphics(interp.toBeDrawn());
 	}
 	catch (InterpreterSemanticError e) {
 		interp.restoreState();
@@ -93,6 +98,53 @@ void QtInterpreter::parseAndEvaluate(QString entry) {
 	}
 	else {
 		info("(None)");
+	}
+
+}
+
+void QtInterpreter::createGraphics(std::vector<Atom> items) {
+
+	for (auto it = items.begin(); it != items.end(); ++it) {
+
+		switch ((*it).getType()) {
+		case Atom::Type::POINT: {
+			double x = pointX((*it).getPoint());
+			double y = pointY((*it).getPoint());
+			QGraphicsEllipseItem * point = new QGraphicsEllipseItem();
+			point->setRect(QRectF(x - 2, y - 2, 4, 4));
+			point->setBrush(QBrush(Qt::black));
+			drawGraphic(point);
+			break;
+		}
+		case Atom::Type::LINE: {
+			double x1 = pointX((*it).getLine().first);
+			double y1 = pointY((*it).getLine().first);
+			double x2 = pointX((*it).getLine().second);
+			double y2 = pointY((*it).getLine().second);
+			QGraphicsLineItem * line = new QGraphicsLineItem();
+			line->setLine(QLineF(QPointF(x1, y1), QPointF(x2, y2)));
+			drawGraphic(line);
+			break;
+		}
+		case Atom::Type::ARC: {
+			double cx = pointX((*it).getArc().center);
+			double cy = pointY((*it).getArc().center);
+			double sx = pointX((*it).getArc().start);
+			double sy = pointY((*it).getArc().start);
+			double spanAngle = qRadiansToDegrees((*it).getArc().span) * 16;
+			QLineF line(QLineF(QPointF(cx, cy), QPointF(sx, sy)));
+			double width = line.length() * 2;
+			double height = width;
+			double startAngle = line.angle() * 16;
+			QGraphicsArcItem * arc = new QGraphicsArcItem();
+			arc->setRect(QRectF(cx - width / 2, cy - height / 2, width, height));
+			arc->setStartAngle(startAngle);
+			arc->setSpanAngle(spanAngle);
+			drawGraphic(arc);
+			break;
+		}
+		}
+
 	}
 
 }

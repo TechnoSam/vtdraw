@@ -23,6 +23,11 @@ public slots:
 	// object derived from QGraphicsItem to draw
 	void addGraphic(QGraphicsItem * item);
 
+private:
+
+	QGraphicsScene * scene;
+	QGraphicsView * view;
+
 };
 
 #endif

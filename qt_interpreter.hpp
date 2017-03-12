@@ -36,6 +36,7 @@ public slots:
 private:
 
 	Interpreter interp;
+	void createGraphics(std::vector<Atom> item);
 
 };
 
