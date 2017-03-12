@@ -32,6 +32,7 @@ bool Interpreter::parse(std::istream & expression) noexcept {
 
 Expression Interpreter::eval() {
 
+	env.clearToDraw();
 	return postEval(AST);
 
 }
@@ -100,6 +101,22 @@ Expression Interpreter::postEval(Expression exp) {
 			else {
 				return postEval(children.at(2));
 			}
+		}
+		if (exp.getAtom().getSymbol() == "draw") {
+			std::vector<Expression> children = exp.getChildren();
+			if (children.empty()) {
+				throw InterpreterSemanticError("No children");
+			}
+			for (auto it = children.begin(); it != children.end(); ++it) {
+				Expression item = postEval(*it);
+				if (item.getAtom().getType() != Atom::Type::POINT &&
+					item.getAtom().getType() != Atom::Type::LINE &&
+					item.getAtom().getType() != Atom::Type::ARC) {
+					throw InterpreterSemanticError("Attempt to draw non graphical type");
+				}
+				env.addDraw(item.getAtom());
+			}
+			return Expression();
 		}
 	}
 	// If we're not a special form, evaluate all the children of the current expression
@@ -179,5 +196,11 @@ void Interpreter::saveState() {
 void Interpreter::restoreState() {
 
 	env = save;
+
+}
+
+std::vector<Atom> Interpreter::toBeDrawn() {
+
+	return env.toBeDrawn();
 
 }

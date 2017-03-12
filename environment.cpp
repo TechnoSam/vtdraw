@@ -89,3 +89,27 @@ bool Environment::exists(std::string symbol) {
 	return env.find(symbol) != env.end();
 
 }
+
+void Environment::clearToDraw() {
+
+	toDraw.clear();
+
+}
+
+void Environment::addDraw(Atom item) {
+
+	if (item.getType() != Atom::Type::POINT &&
+		item.getType() != Atom::Type::LINE &&
+		item.getType() != Atom::Type::ARC) {
+		throw std::logic_error("Item is not of graphical type");
+	}
+
+	toDraw.push_back(item);
+
+}
+
+std::vector<Atom> Environment::toBeDrawn() {
+
+	return toDraw;
+
+}

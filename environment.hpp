@@ -37,9 +37,22 @@ public:
 	// return True if the key is defined, false otherwise
 	bool exists(std::string symbol);
 
+	// Clears the vector of graphical items to be drawn
+	void clearToDraw();
+	
+	// Adds an item to the vector of items to be drawn
+	// @param item The item to add
+	// @throw logic_error if item is not graphical type
+	void addDraw(Atom item);
+
+	// Gets the vector of graphical items to be drawn
+	// @return The vector of items to be drawn
+	std::vector<Atom> toBeDrawn();
+
 private:
 
 	std::unordered_map<std::string, EnvEntry> env;
+	std::vector<Atom> toDraw;
 
 };
 

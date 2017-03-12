@@ -32,6 +32,11 @@ public:
 	// Restores the state of the environment to the last saved point
 	void restoreState();
 
+	// Gets the vector of items to be drawn from the last eval()
+	// Guaranteed to only contain graphical types
+	// @return The vector of items to be drawn
+	std::vector<Atom> toBeDrawn();
+
 private:
 
 	Tokenizer tkn;
