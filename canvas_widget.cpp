@@ -14,6 +14,9 @@ CanvasWidget::CanvasWidget(QWidget * parent) {
 	QGraphicsScene * scene = new QGraphicsScene(this);
 	scene->addText("Hello Lyoko!");
 
+	QGraphicsItem * test = new QGraphicsEllipseItem(QRectF(0, 0, 100, 100));
+	scene->addItem(test);
+
 	QGraphicsView * view = new QGraphicsView(scene);
 	view->show();
 
