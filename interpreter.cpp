@@ -71,8 +71,17 @@ Expression Interpreter::postEval(Expression exp) {
 			if (value.getAtom().getType() == Atom::Type::BOOL) {
 				env.define(symbol, EnvEntry(value.getAtom().getBool()));
 			}
-			else {// if (value.getAtom().getType() == Atom::Type::NUMBER)
+			else if (value.getAtom().getType() == Atom::Type::NUMBER) {
 				env.define(symbol, EnvEntry(value.getAtom().getNumber()));
+			}
+			else if (value.getAtom().getType() == Atom::Type::POINT) {
+				env.define(symbol, EnvEntry(value.getAtom().getPoint()));
+			}
+			else if (value.getAtom().getType() == Atom::Type::LINE) {
+				env.define(symbol, EnvEntry(value.getAtom().getLine()));
+			}
+			else {
+				env.define(symbol, EnvEntry(value.getAtom().getArc()));
 			}
 			return value;
 		}
@@ -144,7 +153,16 @@ Expression Interpreter::postEval(Expression exp) {
 			if (value.getType() == EnvEntry::Type::BOOL) {
 				return Expression(value.getBool());
 			}
-			return Expression(value.getNumber());
+			if (value.getType() == EnvEntry::Type::NUMBER) {
+				return Expression(value.getNumber());
+			}
+			if (value.getType() == EnvEntry::Type::POINT) {
+				return Expression(value.getPoint());
+			}
+			if (value.getType() == EnvEntry::Type::LINE) {
+				return Expression(value.getLine());
+			}
+			return Expression(value.getArc());
 		}
 		return exp;
 

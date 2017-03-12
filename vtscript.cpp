@@ -75,8 +75,23 @@ bool run(std::istream& program, Interpreter& interp) {
 		std::string boolString = result.getAtom().getBool() ? "True" : "False";
 		std::cout << "(" << boolString << ")" << std::endl;
 	}
-	else { // Number. Nothing else should be able to happen so other cases are untestable
+	else if (result.getAtom().getType() == Atom::Type::NUMBER) {
 		std::cout << "(" << result.getAtom().getNumber() << ")" << std::endl;
+	}
+	else if (result.getAtom().getType() == Atom::Type::POINT) {
+		std::cout << "(" << pointX(result.getAtom().getPoint()) << ", " << pointY(result.getAtom().getPoint()) << ")" << std::endl;
+	}
+	else if (result.getAtom().getType() == Atom::Type::LINE) {
+		std::cout << "((" << pointX(result.getAtom().getLine().first) << ", " << pointY(result.getAtom().getLine().first) <<
+			"), (" << pointX(result.getAtom().getLine().second) << ", " << pointY(result.getAtom().getLine().second) << "))" << std::endl;
+	}
+	else if (result.getAtom().getType() == Atom::Type::ARC) {
+		std::cout << "((" << pointX(result.getAtom().getArc().center) << ", " << pointY(result.getAtom().getArc().center) <<
+			"), (" << pointX(result.getAtom().getArc().start) << ", " << pointY(result.getAtom().getArc().start) <<
+			"), " << result.getAtom().getArc().span << ")" << std::endl;
+	}
+	else {
+		std::cout << "(None)" << std::endl;
 	}
 
 	return true;
