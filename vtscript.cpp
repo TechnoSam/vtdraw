@@ -88,7 +88,7 @@ bool run(std::istream& program, Interpreter& interp) {
 	else if (result.getAtom().getType() == Atom::Type::ARC) {
 		std::cout << "((" << pointX(result.getAtom().getArc().center) << ", " << pointY(result.getAtom().getArc().center) <<
 			"), (" << pointX(result.getAtom().getArc().start) << ", " << pointY(result.getAtom().getArc().start) <<
-			"), " << result.getAtom().getArc().span << ")" << std::endl;
+			") " << result.getAtom().getArc().span << ")" << std::endl;
 	}
 	else {
 		std::cout << "(None)" << std::endl;

@@ -47,12 +47,52 @@ void QtInterpreter::parseAndEvaluate(QString entry) {
 		infoMsg.append(")");
 		info(infoMsg);
 	}
-	else { // Number. Nothing else should be able to happen so other cases are untestable
+	else if (result.getAtom().getType() == Atom::Type::NUMBER) {
 		QString infoMsg;
 		infoMsg.append("(");
 		infoMsg.append(QString::number(result.getAtom().getNumber()));
 		infoMsg.append(")");
 		info(infoMsg);
+	}
+	else if (result.getAtom().getType() == Atom::Type::POINT) {
+		QString infoMsg;
+		infoMsg.append("(");
+		infoMsg.append(QString::number(pointX(result.getAtom().getPoint())));
+		infoMsg.append(", ");
+		infoMsg.append(QString::number(pointY(result.getAtom().getPoint())));
+		infoMsg.append(")");
+		info(infoMsg);
+	}
+	else if (result.getAtom().getType() == Atom::Type::LINE) {
+		QString infoMsg;
+		infoMsg.append(("(("));
+		infoMsg.append(QString::number(pointX(result.getAtom().getLine().first)));
+		infoMsg.append(", ");
+		infoMsg.append(QString::number(pointY(result.getAtom().getLine().first)));
+		infoMsg.append("), (");
+		infoMsg.append(QString::number(pointX(result.getAtom().getLine().second)));
+		infoMsg.append(", ");
+		infoMsg.append(QString::number(pointY(result.getAtom().getLine().second)));
+		infoMsg.append("))");
+		info(infoMsg);
+	}
+	else if (result.getAtom().getType() == Atom::Type::ARC) {
+		QString infoMsg;
+		infoMsg.append(("(("));
+		infoMsg.append(QString::number(pointX(result.getAtom().getArc().center)));
+		infoMsg.append(", ");
+		infoMsg.append(QString::number(pointY(result.getAtom().getArc().center)));
+		infoMsg.append("), (");
+		infoMsg.append(QString::number(pointX(result.getAtom().getArc().start)));
+		infoMsg.append(", ");
+		infoMsg.append(QString::number(pointY(result.getAtom().getArc().start)));
+		infoMsg.append(") ");
+		infoMsg.append(QString::number(result.getAtom().getArc().span));
+		infoMsg.append(")");
+		info(infoMsg);
+	}
+	else {
+		info("(None)");
 	}
 
 }
