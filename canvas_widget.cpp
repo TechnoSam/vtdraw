@@ -15,7 +15,6 @@ CanvasWidget::CanvasWidget(QWidget * parent) {
 	scene = new QGraphicsScene(this);
 
 	view = new QGraphicsView(scene);
-	view->show();
 
 	QHBoxLayout * layout = new QHBoxLayout(this);
 
