@@ -46,55 +46,19 @@ void QtInterpreter::parseAndEvaluate(QString entry) {
 	}
 
 	if (result.getAtom().getType() == Atom::Type::BOOL) {
-		QString infoMsg;
-		infoMsg.append("(");
-		infoMsg.append(result.getAtom().getBool() ? "True" : "False");
-		infoMsg.append(")");
-		info(infoMsg);
+		info(boolString(result));
 	}
 	else if (result.getAtom().getType() == Atom::Type::NUMBER) {
-		QString infoMsg;
-		infoMsg.append("(");
-		infoMsg.append(QString::number(result.getAtom().getNumber()));
-		infoMsg.append(")");
-		info(infoMsg);
+		info(numberString(result));
 	}
 	else if (result.getAtom().getType() == Atom::Type::POINT) {
-		QString infoMsg;
-		infoMsg.append("(");
-		infoMsg.append(QString::number(pointX(result.getAtom().getPoint())));
-		infoMsg.append(", ");
-		infoMsg.append(QString::number(pointY(result.getAtom().getPoint())));
-		infoMsg.append(")");
-		info(infoMsg);
+		info(pointString(result));
 	}
 	else if (result.getAtom().getType() == Atom::Type::LINE) {
-		QString infoMsg;
-		infoMsg.append(("(("));
-		infoMsg.append(QString::number(pointX(result.getAtom().getLine().first)));
-		infoMsg.append(", ");
-		infoMsg.append(QString::number(pointY(result.getAtom().getLine().first)));
-		infoMsg.append("), (");
-		infoMsg.append(QString::number(pointX(result.getAtom().getLine().second)));
-		infoMsg.append(", ");
-		infoMsg.append(QString::number(pointY(result.getAtom().getLine().second)));
-		infoMsg.append("))");
-		info(infoMsg);
+		info(lineString(result));
 	}
 	else if (result.getAtom().getType() == Atom::Type::ARC) {
-		QString infoMsg;
-		infoMsg.append(("(("));
-		infoMsg.append(QString::number(pointX(result.getAtom().getArc().center)));
-		infoMsg.append(", ");
-		infoMsg.append(QString::number(pointY(result.getAtom().getArc().center)));
-		infoMsg.append("), (");
-		infoMsg.append(QString::number(pointX(result.getAtom().getArc().start)));
-		infoMsg.append(", ");
-		infoMsg.append(QString::number(pointY(result.getAtom().getArc().start)));
-		infoMsg.append(") ");
-		infoMsg.append(QString::number(result.getAtom().getArc().span));
-		infoMsg.append(")");
-		info(infoMsg);
+		info(arcString(result));
 	}
 	else {
 		info("(None)");
@@ -147,4 +111,60 @@ void QtInterpreter::createGraphics(std::vector<Atom> items) {
 
 	}
 
+}
+
+QString QtInterpreter::boolString(Expression exp) {
+	QString infoMsg;
+	infoMsg.append("(");
+	infoMsg.append(exp.getAtom().getBool() ? "True" : "False");
+	infoMsg.append(")");
+	return infoMsg;
+}
+
+QString QtInterpreter::numberString(Expression exp) {
+	QString infoMsg;
+	infoMsg.append("(");
+	infoMsg.append(QString::number(exp.getAtom().getNumber()));
+	infoMsg.append(")");
+	return infoMsg;
+}
+
+QString QtInterpreter::pointString(Expression exp) {
+	QString infoMsg;
+	infoMsg.append("(");
+	infoMsg.append(QString::number(pointX(exp.getAtom().getPoint())));
+	infoMsg.append(", ");
+	infoMsg.append(QString::number(pointY(exp.getAtom().getPoint())));
+	infoMsg.append(")");
+	return infoMsg;
+}
+
+QString QtInterpreter::lineString(Expression exp) {
+	QString infoMsg;
+	infoMsg.append(("(("));
+	infoMsg.append(QString::number(pointX(exp.getAtom().getLine().first)));
+	infoMsg.append(", ");
+	infoMsg.append(QString::number(pointY(exp.getAtom().getLine().first)));
+	infoMsg.append("), (");
+	infoMsg.append(QString::number(pointX(exp.getAtom().getLine().second)));
+	infoMsg.append(", ");
+	infoMsg.append(QString::number(pointY(exp.getAtom().getLine().second)));
+	infoMsg.append("))");
+	return infoMsg;
+}
+
+QString QtInterpreter::arcString(Expression exp) {
+	QString infoMsg;
+	infoMsg.append(("(("));
+	infoMsg.append(QString::number(pointX(exp.getAtom().getArc().center)));
+	infoMsg.append(", ");
+	infoMsg.append(QString::number(pointY(exp.getAtom().getArc().center)));
+	infoMsg.append("), (");
+	infoMsg.append(QString::number(pointX(exp.getAtom().getArc().start)));
+	infoMsg.append(", ");
+	infoMsg.append(QString::number(pointY(exp.getAtom().getArc().start)));
+	infoMsg.append(") ");
+	infoMsg.append(QString::number(exp.getAtom().getArc().span));
+	infoMsg.append(")");
+	return infoMsg;
 }

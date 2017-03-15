@@ -38,6 +38,12 @@ private:
 	Interpreter interp;
 	void createGraphics(std::vector<Atom> item);
 
+	QString boolString(Expression exp);
+	QString numberString(Expression exp);
+	QString pointString(Expression exp);
+	QString lineString(Expression exp);
+	QString arcString(Expression exp);
+
 };
 
 #endif
