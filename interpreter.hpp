@@ -46,6 +46,16 @@ private:
 
 	Expression postEval(Expression exp);
 
+	Expression begin(Expression exp);
+	Expression define(Expression exp);
+	Expression ifSF(Expression exp);
+	Expression draw(Expression exp);
+
+	bool isProcType(EnvEntry proc);
+	Expression runProc(EnvEntry proc, std::vector<Atom> args);
+
+	Expression retValue(Expression exp);
+
 };
 
 #endif
