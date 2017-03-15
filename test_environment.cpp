@@ -5,7 +5,7 @@
 
 #include "environment.hpp"
 
-TEST_CASE("Tests the Environment constructor", "[environment]") {
+TEST_CASE("Tests the Environment constructor pt1", "[environment]") {
 
 	Environment env;
 	EnvEntry result;
@@ -18,12 +18,6 @@ TEST_CASE("Tests the Environment constructor", "[environment]") {
 	EnvEntry::fptrBool lteFptr = lteProc;
 	EnvEntry::fptrBool gtFptr = gtProc;
 	EnvEntry::fptrBool gteFptr = gteProc;
-	EnvEntry::fptrBool equalFptr = equalProc;
-
-	EnvEntry::fptrNumber sumFptr = sumProc;
-	EnvEntry::fptrNumber subFptr = subProc;
-	EnvEntry::fptrNumber multFptr = multProc;
-	EnvEntry::fptrNumber divFptr = divProc;
 
 	REQUIRE(env.exists("pi"));
 	result = env.fetch("pi");
@@ -64,6 +58,20 @@ TEST_CASE("Tests the Environment constructor", "[environment]") {
 	result = env.fetch(">=");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
 	REQUIRE(result.getFptrBool() == gteFptr);
+
+}
+
+TEST_CASE("Tests the Environment constructor pt2", "[environment]") {
+
+	Environment env;
+	EnvEntry result;
+
+	EnvEntry::fptrBool equalFptr = equalProc;
+
+	EnvEntry::fptrNumber sumFptr = sumProc;
+	EnvEntry::fptrNumber subFptr = subProc;
+	EnvEntry::fptrNumber multFptr = multProc;
+	EnvEntry::fptrNumber divFptr = divProc;
 
 	REQUIRE(env.exists("="));
 	result = env.fetch("=");

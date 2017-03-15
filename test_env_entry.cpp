@@ -95,24 +95,9 @@ TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 
 }
 
-TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventry]") {
+TEST_CASE("Tests exception throwing for invalid access on None EnvEntries", "[enventry]") {
 
 	EnvEntry eNone = EnvEntry();
-	EnvEntry eBool = EnvEntry(true);
-	EnvEntry eNumber = EnvEntry(2.5);
-	EnvEntry::fptrBool boolFuncPtr = boolFunc;
-	EnvEntry eBoolFunc = EnvEntry(boolFuncPtr);
-	EnvEntry::fptrNumber numFuncPtr = numberFunc;
-	EnvEntry eNumFunc = EnvEntry(numFuncPtr);
-	EnvEntry ePoint = EnvEntry(makePoint(1, 2));
-	EnvEntry eLine = EnvEntry(makeLine(makePoint(0, 0), makePoint(5, 5)));
-	EnvEntry eArc = EnvEntry(makeArc(makePoint(0, 0), makePoint(5, 5), 1));
-	EnvEntry::fptrPoint pointFuncPtr = pointFunc;
-	EnvEntry ePointFunc = EnvEntry(pointFuncPtr);
-	EnvEntry::fptrLine lineFuncPtr = lineFunc;
-	EnvEntry eLineFunc = EnvEntry(lineFuncPtr);
-	EnvEntry::fptrArc arcFuncPtr = arcFunc;
-	EnvEntry eArcFunc = EnvEntry(arcFuncPtr);
 
 	REQUIRE_THROWS_AS(eNone.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eNone.getNumber(), std::logic_error);
@@ -125,6 +110,12 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eNone.getFptrLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eNone.getFptrArc(), std::logic_error);
 
+}
+
+TEST_CASE("Tests exception throwing for invalid access on Bool EnvEntries", "[enventry]") {
+
+	EnvEntry eBool = EnvEntry(true);
+
 	REQUIRE_THROWS_AS(eBool.getNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(eBool.getFptrBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eBool.getFptrNumber(), std::logic_error);
@@ -134,6 +125,12 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eBool.getFptrPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eBool.getFptrLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eBool.getFptrArc(), std::logic_error);
+
+}
+
+TEST_CASE("Tests exception throwing for invalid access on Number EnvEntries", "[enventry]") {
+
+	EnvEntry eNumber = EnvEntry(2.5);
 
 	REQUIRE_THROWS_AS(eNumber.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumber.getFptrBool(), std::logic_error);
@@ -145,6 +142,13 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eNumber.getFptrLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumber.getFptrArc(), std::logic_error);
 
+}
+
+TEST_CASE("Tests exception throwing for invalid access on BoolFunc EnvEntries", "[enventry]") {
+
+	EnvEntry::fptrBool boolFuncPtr = boolFunc;
+	EnvEntry eBoolFunc = EnvEntry(boolFuncPtr);
+
 	REQUIRE_THROWS_AS(eBoolFunc.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eBoolFunc.getNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(eBoolFunc.getFptrNumber(), std::logic_error);
@@ -154,6 +158,13 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eBoolFunc.getFptrPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eBoolFunc.getFptrLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eBoolFunc.getFptrArc(), std::logic_error);
+
+}
+
+TEST_CASE("Tests exception throwing for invalid access on NumFunc EnvEntries", "[enventry]") {
+
+	EnvEntry::fptrNumber numFuncPtr = numberFunc;
+	EnvEntry eNumFunc = EnvEntry(numFuncPtr);
 
 	REQUIRE_THROWS_AS(eNumFunc.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumFunc.getNumber(), std::logic_error);
@@ -165,6 +176,12 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eNumFunc.getFptrLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eNumFunc.getFptrArc(), std::logic_error);
 
+}
+
+TEST_CASE("Tests exception throwing for invalid access on Point EnvEntries", "[enventry]") {
+
+	EnvEntry ePoint = EnvEntry(makePoint(1, 2));
+
 	REQUIRE_THROWS_AS(ePoint.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(ePoint.getNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(ePoint.getFptrBool(), std::logic_error);
@@ -174,6 +191,12 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(ePoint.getFptrPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(ePoint.getFptrLine(), std::logic_error);
 	REQUIRE_THROWS_AS(ePoint.getFptrArc(), std::logic_error);
+
+}
+
+TEST_CASE("Tests exception throwing for invalid access on Line EnvEntries", "[enventry]") {
+
+	EnvEntry eLine = EnvEntry(makeLine(makePoint(0, 0), makePoint(5, 5)));
 
 	REQUIRE_THROWS_AS(eLine.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eLine.getNumber(), std::logic_error);
@@ -185,6 +208,12 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eLine.getFptrLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eLine.getFptrArc(), std::logic_error);
 
+}
+
+TEST_CASE("Tests exception throwing for invalid access on Arc EnvEntries", "[enventry]") {
+
+	EnvEntry eArc = EnvEntry(makeArc(makePoint(0, 0), makePoint(5, 5), 1));
+
 	REQUIRE_THROWS_AS(eArc.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eArc.getNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(eArc.getFptrBool(), std::logic_error);
@@ -194,6 +223,13 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eArc.getFptrPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eArc.getFptrLine(), std::logic_error);
 	REQUIRE_THROWS_AS(eArc.getFptrArc(), std::logic_error);
+
+}
+
+TEST_CASE("Tests exception throwing for invalid access on PointFunc EnvEntries", "[enventry]") {
+
+	EnvEntry::fptrPoint pointFuncPtr = pointFunc;
+	EnvEntry ePointFunc = EnvEntry(pointFuncPtr);
 
 	REQUIRE_THROWS_AS(ePointFunc.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(ePointFunc.getNumber(), std::logic_error);
@@ -205,6 +241,13 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(ePointFunc.getFptrLine(), std::logic_error);
 	REQUIRE_THROWS_AS(ePointFunc.getFptrArc(), std::logic_error);
 
+}
+
+TEST_CASE("Tests exception throwing for invalid access on LineFunc EnvEntries", "[enventry]") {
+
+	EnvEntry::fptrLine lineFuncPtr = lineFunc;
+	EnvEntry eLineFunc = EnvEntry(lineFuncPtr);
+
 	REQUIRE_THROWS_AS(eLineFunc.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eLineFunc.getNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(eLineFunc.getFptrBool(), std::logic_error);
@@ -214,6 +257,13 @@ TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventr
 	REQUIRE_THROWS_AS(eLineFunc.getArc(), std::logic_error);
 	REQUIRE_THROWS_AS(eLineFunc.getFptrPoint(), std::logic_error);
 	REQUIRE_THROWS_AS(eLineFunc.getFptrArc(), std::logic_error);
+
+}
+
+TEST_CASE("Tests exception throwing for invalid access on ArcFunc EnvEntries", "[enventry]") {
+
+	EnvEntry::fptrArc arcFuncPtr = arcFunc;
+	EnvEntry eArcFunc = EnvEntry(arcFuncPtr);
 
 	REQUIRE_THROWS_AS(eArcFunc.getBool(), std::logic_error);
 	REQUIRE_THROWS_AS(eArcFunc.getNumber(), std::logic_error);

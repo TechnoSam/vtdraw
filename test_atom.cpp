@@ -84,6 +84,18 @@ TEST_CASE("Tests the equality operator for Atoms", "[atom]") {
 	REQUIRE(aArc1 == aArc2);
 	REQUIRE(aArc1 != aArc3);
 
+}
+
+TEST_CASE("Tests Atom equality across types", "[atom]") {
+
+	Atom aNone1 = Atom();
+	Atom aBool1 = Atom(true);
+	Atom aNumber1 = Atom(2.5);
+	Atom aSymbol1 = Atom(std::string("Test"));
+	Atom aPoint1 = Atom(makePoint(1, 2));
+	Atom aLine1 = Atom(makeLine(makePoint(0, 0), makePoint(5, 5)));
+	Atom aArc1 = Atom(makeArc(makePoint(0, 0), makePoint(5, 5), 1));
+
 	REQUIRE(aNone1 != aBool1);
 	REQUIRE(aNone1 != aNumber1);
 	REQUIRE(aNone1 != aSymbol1);

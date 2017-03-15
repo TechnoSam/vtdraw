@@ -51,6 +51,6 @@ double pointX(Point point);
 // Needed because of tuple representation
 // @param point The point to get the y-value from
 // @return The y value of point
-double pointY(Point);
+double pointY(Point point);
 
 #endif
